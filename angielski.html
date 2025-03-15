@@ -437,6 +437,69 @@ function markLessonCompleted() {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+        function shuffleArray(array) {
+    return array.sort(() => Math.random() - 0.5);
+}
+
+updatePointsDisplay();
+loadWords();
+
+
+
+
+
+
+function markLessonCompleted() {
+    localStorage.setItem("lesson1_completed", "true");
+    window.location.href = "home.html"; // Przekierowanie na stronę główną (lub inną)
+
+  }
+
+
+
+
+  function checkCompletion() {
+    const remainingWords = document.querySelectorAll(".word:not(.correct)");
+
+    if (remainingWords.length === 0) {
+        messageBox.innerHTML = `Zrobiłeś ${currentSetIndex + 1} z ${wordSets.length}`;
+        messageBox.style.opacity = 1;
+
+        setTimeout(() => {
+            englishColumn.innerHTML = "";
+            polishColumn.innerHTML = "";
+        }, 1000);
+
+        setTimeout(() => {
+            messageBox.style.opacity = 0;
+            if (currentSetIndex < wordSets.length - 1) {
+                currentSetIndex++;
+                setTimeout(loadWords, 500);
+            } else {
+                messageBox.innerHTML = "Gratulacje! Ukończyłeś wszystkie części!";
+                messageBox.style.opacity = 1;
+                
+                // Pokazuje przycisk "Zakończ lekcję"
+                document.getElementById("finish-button").style.display = "block";
+            }
+        }, 2000);
+    }
+}
+
+
     </script>
     
 </body>
