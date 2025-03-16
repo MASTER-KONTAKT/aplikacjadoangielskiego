@@ -70,10 +70,10 @@
             position: fixed;
             bottom: 0;
             left: 0;
-                text-decoration: none;
         }
 
-          .footer a {
+
+        .footer a {
             color: white;
             text-decoration: none;
             font-size: 18px;
@@ -87,7 +87,6 @@
             background-color: #555;
             border-radius: 5px;
         }
-
 
         .calendar-header {
             display: flex;
@@ -116,6 +115,7 @@
             margin-left: 20px;  /* Odstęp od lewej krawędzi */
             margin-top: 50px;   /* Odstęp od górnej krawędzi */
             text-align: center;
+            float: left;
         }
 
         .aktywnosc h2 {
@@ -159,6 +159,23 @@
         .fire {
             color: orange;
         }
+        #wpisywanie
+        {
+            float: left;
+            margin: 100px;
+            padding: 10px;
+            text-decoration: none;
+          
+        }
+        #wpisywanie a
+        {
+            text-decoration: none;
+            color: #555;
+        }
+        #wpisywanie :hover
+        {
+            color: black;
+        }
 
     </style>
 </head>
@@ -168,7 +185,7 @@
         <a href="index.html">Start &nbsp; <img src="london-eye.png" alt=""> </a>
         <a href="#">Osiągnięcia &nbsp;<img src="trophy.png" alt=""></a>
         <a href="slowka.html">Słowa &nbsp;<img src="conversation.png" alt=""></a>
-            
+   
     </div>
 
     <div id="all">
@@ -181,11 +198,19 @@
             </div>
             <div class="calendar" id="calendar"></div>
         </div>
+
+
+        <div id="wpisywanie">
+            <a href="dodajslowo.html"><h3>Wpisywanie słów (demo) </h3></a>
+        </div>
     </div>
+
+
+
 
     <div id="footer">
         <a href="#"> <img src="united-states.png" alt=""> </a>
-         <a href="nowosci.html">nowości &nbsp;<img src="conversation.png" alt=""></a>
+        <a href="nowosci.html">nowości &nbsp;<img src="conversation.png" alt=""></a>
        
     </div>
 
