@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+ html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    user-select: none;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f4f4f4;
+    padding-top: 50px; /* Miejsce na navbar */
+    padding-bottom: 50px; /* Miejsce na stopkę */
+    overflow-x: hidden; /* Zapobiega przewijaniu poziomemu */
+}
+
+/* NAVBAR */
+.navbar {
+    width: 100%;
+    background-color: gray;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    flex-wrap: nowrap; /* Zapobiega przechodzeniu do nowej linii */
+    overflow-x: auto; /* Jeśli za mało miejsca, można przewijać poziomo */
+    white-space: nowrap; /* Zapobiega łamaniu tekstu */
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0; /* Zapobiega ściskaniu elementów */
+}
+
+.navbar a:hover {
+    background-color: #555;
+    border-radius: 5px;
+}
+
+.navbar img {
+    width: 24px;
+    height: 24px;
+}
+
+#all
+{
+   color: blue;
+}
+
+
+#footer {
+    width: 100%;
+    background-color: gray;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+
+
+
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="index.html">Start &nbsp; <img src="london-eye.png" alt=""> </a>
+        <a href="#">Osiągnięcia &nbsp;<img src="trophy.png" alt=""></a>
+        <a href="slowka.html">Słowa &nbsp;<img src="conversation.png" alt=""></a>
+        <a href="nowosci.html">nowości &nbsp;<img src="conversation.png" alt=""></a>
+    </div>
+
+<div id="all">
+
+   <h1> Co nowego ?</h1>
+      <h3>poprawiona widoczność aplikacji na użądzeniach mobilnych </h3>
+</div>
+
+    <div id="footer"> 
+        <a href="#"> <img src="united-states.png" alt="Flaga USA"> </a>
+    </div>
+
+ 
+</body>
+</html>
