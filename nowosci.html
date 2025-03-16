@@ -6,85 +6,133 @@
     <title>Document</title>
 
     <style>
- html, body {
-    height: 100%;
-    margin: 0;
-    font-family: Arial, sans-serif;
-    user-select: none;
-}
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            user-select: none;
+            display: flex;
+            flex-direction: column;
+        }
 
-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #f4f4f4;
-    padding-top: 50px; /* Miejsce na navbar */
-    padding-bottom: 50px; /* Miejsce na stopkę */
-    overflow-x: hidden; /* Zapobiega przewijaniu poziomemu */
-}
+        body {
+            background-color: #f4f4f4;
+        }
 
-/* NAVBAR */
-.navbar {
-    width: 100%;
-    background-color: gray;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    flex-wrap: nowrap; /* Zapobiega przechodzeniu do nowej linii */
-    overflow-x: auto; /* Jeśli za mało miejsca, można przewijać poziomo */
-    white-space: nowrap; /* Zapobiega łamaniu tekstu */
-}
+        /* NAVBAR */
+        .navbar {
+            width: 100%;
+            background-color: gray;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
 
-.navbar a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-    padding: 8px 12px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    flex-shrink: 0; /* Zapobiega ściskaniu elementów */
-}
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            flex-shrink: 0;
+        }
 
-.navbar a:hover {
-    background-color: #555;
-    border-radius: 5px;
-}
+        .navbar a:hover {
+            background-color: #555;
+            border-radius: 5px;
+        }
 
-.navbar img {
-    width: 24px;
-    height: 24px;
-}
+        .navbar img {
+            width: 24px;
+            height: 24px;
+        }
 
-#all
-{
-   color: blue;
-}
+        /* Main Content */
+        #all {
+            color: gray;
+            text-align: center;
+            padding: 40px;
+            margin-top: 60px; /* Add space to avoid content being hidden behind navbar */
+            margin-bottom: 60px; /* Add space to avoid content being hidden behind footer */
+            max-width: 800px;
+            width: 100%;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: auto;
 
+            /* Center content horizontally and vertically */
+            margin-left: auto;
+            margin-right: auto;
+        }
 
-#footer {
-    width: 100%;
-    background-color: gray;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    z-index: 1000;
-}
+        #all h1 {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 15px;
+        }
 
+        #all h3 {
+            font-size: 20px;
+            color: #555;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
 
+        /* Footer */
+        #footer {
+            width: 100%;
+            background-color: gray;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            z-index: 1000;
+        }
 
+        #footer a {
+            color: white;
+        }
 
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: row; /* Maintain row layout */
+                gap: 10px;
+                padding: 5px; /* Adjust padding for mobile */
+                font-size: 14px; /* Decrease font size for smaller screens */
+            }
 
+            .navbar a {
+                padding: 6px 10px; /* Adjust padding for smaller screens */
+            }
+
+            #all {
+                padding: 30px;
+            }
+
+            #all h1 {
+                font-size: 28px;
+            }
+
+            #all h3 {
+                font-size: 18px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -95,16 +143,25 @@ body {
         <a href="nowosci.html">nowości &nbsp;<img src="conversation.png" alt=""></a>
     </div>
 
-<div id="all">
-
-   <h1> Co nowego ?</h1>
-      <h3>poprawiona widoczność aplikacji na użądzeniach mobilnych </h3>
-</div>
-
-    <div id="footer"> 
-        <a href="#"> <img src="united-states.png" alt="Flaga USA"> </a>
+    <!-- Main Content -->
+    <div id="all">
+        <h1>Co nowego?</h1>
+        <br>
+        <h3>1. Poprawiona widoczność aplikacji na urządzeniach mobilnych</h3>
+        <br>
+            Od teraz aplikacja będzie możliwa do wyświetlenia na <br>
+            użadzeniach mobilnych w sposób ładny i czytelny 
+            <br>
+            <br>
+        <h3>2. Dodana zakładka z nowościami </h3>
+        <br>
+            W tej nowej zakładce "Nowości" bedziesz informowany na<br>
+             bierząco o wszystkich zmianach w naszej aplikacji
     </div>
 
- 
+    <!-- Footer -->
+    <div id="footer">
+        <a href="#"> <img src="united-states.png" alt="Flaga USA"> </a>
+    </div>
 </body>
 </html>
