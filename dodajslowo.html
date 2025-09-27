@@ -183,31 +183,35 @@
 
     <script>
     const words = [
-      { pl: "drzewo", en: "tree" }, { pl: "dom", en: "house" }, { pl: "pies", en: "dog" }, { pl: "kot", en: "cat" }, { pl: "książka", en: "book" }, { pl: "teraz", en: "now" }, { pl: "jabłko", en: "apple" }, { pl: "długopis", en: "pen" }, { pl: "dziewczyna", en: "girl" }, { pl: "chłopak", en: "boy" }, { pl: "mężczyzna", en: "man" }, { pl: "kobieta", en: "woman" }, { pl: "jedzenie", en: "food" }, { pl: "woda", en: "water" }, { pl: "kawa", en: "coffee" }, { pl: "mleko", en: "milk" }, { pl: "herbata", en: "tea" }, { pl: "ryba", en: "fish" }, { pl: "kurczak", en: "chicken" }, { pl: "mięso", en: "meat" }, { pl: "ryż", en: "rice" }, { pl: "szkoła", en: "school" }, { pl: "nauczyciel", en: "teacher" }, { pl: "uczeń", en: "student" }, { pl: "dziecko", en: "child" }, { pl: "rodzina", en: "family" }, { pl: "przyjaciel", en: "friend" }, { pl: "wielki", en: "big" }, { pl: "mały", en: "small" }, { pl: "nowy", en: "new" }, { pl: "stary", en: "old" }, { pl: "szybki", en: "fast" }, { pl: "wolny", en: "slow" }, { pl: "piękny", en: "beautiful" }, { pl: "brzydki", en: "ugly" }, { pl: "zimny", en: "cold" }, { pl: "gorący", en: "hot" }, { pl: "ciemny", en: "dark" }, { pl: "jasny", en: "light" }, { pl: "dobry", en: "good" }, { pl: "zły", en: "bad" }, { pl: "łatwy", en: "easy" }, { pl: "trudny", en: "difficult" }, { pl: "późno", en: "late" }, { pl: "wcześnie", en: "early" }, { pl: "praca", en: "work" }, { pl: "wypoczynek", en: "rest" }, { pl: "śniadanie", en: "breakfast" }, { pl: "obiad", en: "lunch" }, { pl: "kolacja", en: "dinner" }, { pl: "ubranie", en: "clothes" }, { pl: "buty", en: "shoes" }, { pl: "spodnie", en: "pants" }, { pl: "koszula", en: "shirt" }, { pl: "sukienka", en: "dress" }, { pl: "czapka", en: "hat" }, { pl: "rękawiczki", en: "gloves" }, { pl: "skórzany", en: "leather" }, { pl: "woda", en: "water" }, { pl: "słońce", en: "sun" }, { pl: "deszcz", en: "rain" }, { pl: "śnieg", en: "snow" }, { pl: "wiatr", en: "wind" }, { pl: "morze", en: "sea" }, { pl: "góry", en: "mountains" }, { pl: "jezioro", en: "lake" }, { pl: "rzeka", en: "river" }, { pl: "dzień", en: "day" }, { pl: "noc", en: "night" }, { pl: "tak", en: "yes" }, { pl: "nie", en: "no" }, { pl: "tylko", en: "only" }, { pl: "również", en: "also" }, { pl: "to", en: "it" }, { pl: "jest", en: "is" }, { pl: "są", en: "are" }, { pl: "mam", en: "I have" }, { pl: "masz", en: "you have" }, { pl: "on ma", en: "he has" }, { pl: "ona ma", en: "she has" }, { pl: "oni mają", en: "they have" }, { pl: "mamy", en: "we have" }, { pl: "siedzieć", en: "sit" }, { pl: "stać", en: "stand" }, { pl: "chodzić", en: "walk" }, { pl: "biegać", en: "run" }, { pl: "widzieć", en: "see" }, { pl: "słyszeć", en: "hear" }, { pl: "mówić", en: "speak" }, { pl: "jeść", en: "eat" }, { pl: "pić", en: "drink" }, { pl: "kochać", en: "love" }, { pl: "lubić", en: "like" }, { pl: "czekać", en: "wait" }, { pl: "pisać", en: "write" }, { pl: "czytać", en: "read" }, { pl: "rozumieć", en: "understand" }, { pl: "pracować", en: "work" }, { pl: "szukać", en: "search" }, { pl: "znać", en: "know" }, { pl: "zrozumieć", en: "understand" }, { pl: "później", en: "later" }, { pl: "wczoraj", en: "yesterday" }, { pl: "jutro", en: "tomorrow" }, { pl: "teraz", en: "now" }, { pl: "znajomy", en: "acquaintance" }, { pl: "płatność", en: "payment" }, { pl: "cena", en: "price" }, { pl: "prezent", en: "gift" }, { pl: "opinia", en: "opinion" }, { pl: "połowa", en: "half" }, { pl: "człowiek", en: "person" }, { pl: "dziecko", en: "child" }, { pl: "samochód", en: "car" }, { pl: "rower", en: "bicycle" }, { pl: "autobus", en: "bus" }, { pl: "pociąg", en: "train" }, { pl: "lotnisko", en: "airport" }, { pl: "stacja", en: "station" }, { pl: "ulica", en: "street" }, { pl: "sklep", en: "store" }, { pl: "biblioteka", en: "library" }, { pl: "kino", en: "cinema" }, { pl: "restauracja", en: "restaurant" }, { pl: "szpital", en: "hospital" }, { pl: "apteka", en: "pharmacy" }, { pl: "park", en: "park" }, { pl: "plaża", en: "beach" }, { pl: "góra", en: "mountain" }, { pl: "las", en: "forest" }, { pl: "zwierzę", en: "animal" }, { pl: "roślina", en: "plant" }, { pl: "owoc", en: "fruit" }, { pl: "warzywo", en: "vegetable" }, { pl: "śmierć", en: "death" }, { pl: "życie", en: "life" }, { pl: "miasto", en: "city" }, { pl: "wieś", en: "village" }, { pl: "państwo", en: "country" }, { pl: "kontynent", en: "continent" }, { pl: "oceany", en: "oceans" }, { pl: "morze", en: "sea" }, { pl: "człowiek", en: "human" }, { pl: "dzieciak", en: "kid" }, { pl: "dziewczynka", en: "girl" }, { pl: "chłopiec", en: "boy" }, { pl: "rodzic", en: "parent" }, { pl: "brat", en: "brother" }, { pl: "siostra", en: "sister" }, { pl: "dziadek", en: "grandfather" }, { pl: "babcia", en: "grandmother" }, { pl: "wnuk", en: "grandson" }, { pl: "wnuczka", en: "granddaughter" }, { pl: "wujek", en: "uncle" }, { pl: "ciocia", en: "aunt" }, { pl: "przyjaciel", en: "friend" }, { pl: "sąsiad", en: "neighbor" }, { pl: "mąż", en: "husband" }, { pl: "żona", en: "wife" }, { pl: "chleb", en: "bread" }, { pl: "ciasto", en: "cake" }, { pl: "ciastko", en: "cookie" }, { pl: "woda", en: "water" }, { pl: "sok", en: "juice" }, { pl: "piwo", en: "beer" }, { pl: "wino", en: "wine" }, { pl: "piłka", en: "ball" }, { pl: "klocki", en: "blocks" }, { pl: "zabawka", en: "toy" }, { pl: "komputer", en: "computer" }, { pl: "telefon", en: "phone" }, { pl: "telewizor", en: "television" }, { pl: "muzyka", en: "music" }, { pl: "film", en: "movie" }, { pl: "księżyc", en: "moon" }, { pl: "gwiazda", en: "star" }, { pl: "chmura", en: "cloud" }, { pl: "tęcza", en: "rainbow" }, { pl: "tęczowy", en: "rainbow-colored" }, { pl: "czystość", en: "cleanliness" }, { pl: "brud", en: "dirt" }, { pl: "śmieć", en: "trash" }, { pl: "sprzątać", en: "clean up" }, { pl: "gotować", en: "cook" }, { pl: "myć", en: "wash" }, { pl: "śpiewać", en: "sing" }, { pl: "tańczyć", en: "dance" }, { pl: "bawić się", en: "play" }, { pl: "pisać", en: "write" }, { pl: "czytać", en: "read" }, { pl: "rozmawiać", en: "talk" }, { pl: "słuchać", en: "listen" }, { pl: "kupić", en: "buy" }, { pl: "sprzedawać", en: "sell" }, { pl: "osiągnąć", en: "achieve" }, { pl: "rozpocząć", en: "start" }, { pl: "zakończyć", en: "finish" }, { pl: "wielki", en: "huge" }, { pl: "wiele", en: "many" }, { pl: "mało", en: "few" }, { pl: "toaleta", en: "toilet" }, { pl: "kuchnia", en: "kitchen" }, { pl: "salon", en: "living room" }, { pl: "łazienka", en: "bathroom" }, { pl: "sypialnia", en: "bedroom" }, { pl: "schody", en: "stairs" }, { pl: "dach", en: "roof" }, { pl: "okno", en: "window" }, { pl: "drzwi", en: "door" }, { pl: "stół", en: "table" }, { pl: "krzesło", en: "chair" }, { pl: "kanapa", en: "sofa" }, { pl: "łóżko", en: "bed" }, { pl: "szafa", en: "wardrobe" }, { pl: "talerz", en: "plate" }, { pl: "szklanka", en: "glass" }, { pl: "kubek", en: "cup" }, { pl: "widelec", en: "fork" }, { pl: "nóż", en: "knife" }, { pl: "łyżka", en: "spoon" }, { pl: "ser", en: "cheese" }, { pl: "chleb", en: "bread" }, { pl: "masło", en: "butter" }, { pl: "miód", en: "honey" }, { pl: "cukier", en: "sugar" }, { pl: "sól", en: "salt" }, { pl: "pieprz", en: "pepper" }, { pl: "pomidor", en: "tomato" }, { pl: "ogórek", en: "cucumber" }, { pl: "ziemniak", en: "potato" }, { pl: "marchewka", en: "carrot" }, { pl: "cebula", en: "onion" }, { pl: "czosnek", en: "garlic" }, { pl: "jabłko", en: "apple" }, { pl: "banan", en: "banana" }, { pl: "winogrono", en: "grape" }, { pl: "truskawka", en: "strawberry" }, { pl: "malina", en: "raspberry" }, { pl: "pomarańcza", en: "orange" }, { pl: "cytryna", en: "lemon" }, { pl: "arbuz", en: "watermelon" }, { pl: "ananas", en: "pineapple" }, { pl: "brzoskwinia", en: "peach" }, { pl: "śliwka", en: "plum" }, { pl: "gruszka", en: "pear" }, { pl: "wiśnia", en: "cherry" }, { pl: "jagoda", en: "blueberry" }, { pl: "wielki", en: "large" }, { pl: "czerwony", en: "red" }, { pl: "zielony", en: "green" }, { pl: "niebieski", en: "blue" }, { pl: "żółty", en: "yellow" }, { pl: "czarny", en: "black" }, { pl: "biały", en: "white" }, { pl: "brązowy", en: "brown" }, { pl: "pomarańczowy", en: "orange" }, { pl: "szary", en: "gray" }, { pl: "czysto", en: "clean" }, { pl: "brudny", en: "dirty" }, { pl: "szybki", en: "quick" }, { pl: "piękny", en: "pretty" }, { pl: "smutny", en: "sad" }, { pl: "szczęśliwy", en: "happy" }, { pl: "chłodny", en: "cool" }, { pl: "ciepły", en: "warm" }, { pl: "krótkie", en: "short" }, { pl: "długie", en: "long" }, { pl: "głośny", en: "loud" }, { pl: "cichy", en: "quiet" }, { pl: "mocny", en: "strong" }, { pl: "słaby", en: "weak" }, { pl: "wesoły", en: "joyful" }, { pl: "pusty", en: "empty" }, { pl: "pełny", en: "full" }, { pl: "drogi", en: "expensive" }, { pl: "tani", en: "cheap" }, { pl: "nowoczesny", en: "modern" }, { pl: "stary", en: "ancient" }, { pl: "jasny", en: "bright" },
+        // 🔽 TESTOWE SŁÓWKA (zmień na swoje)
+        { pl: "drzewo", en: "tree" },
+        { pl: "dom", en: "house" },
+        { pl: "pies", en: "dog" }
     ];
 
     const successMessages = ["Great!", "Awesome!", "Perfect!", "Well done!", "Excellent!", "Super!"];
     
     let currentIndex = 0;
-    let currentWord = words[currentIndex];
 
     function displayWord() {
-        document.getElementById("word").textContent = currentWord.pl;
-        document.getElementById("answer").value = '';
-        document.getElementById("result").textContent = '';
-        document.getElementById("submit").disabled = false;
-        document.getElementById("success-bar").classList.remove("show");
-        updateProgressBar();
+        if (currentIndex < words.length) {
+            document.getElementById("word").textContent = words[currentIndex].pl;
+            document.getElementById("answer").value = '';
+            document.getElementById("result").textContent = '';
+            document.getElementById("submit").disabled = false;
+            document.getElementById("success-bar").classList.remove("show");
+            updateProgressBar();
+        }
     }
 
     function checkAnswer() {
         const answer = document.getElementById("answer").value.trim().toLowerCase();
-        const correctAnswer = currentWord.en.toLowerCase();
+        const correctAnswer = words[currentIndex].en.toLowerCase();
 
         if (answer === correctAnswer) {
             showSuccessBar();
         } else {
-            document.getElementById("result").textContent = `Błąd! Poprawna odpowiedź to: ${currentWord.en}`;
+            document.getElementById("result").textContent = `Błąd! Poprawna odpowiedź to: ${words[currentIndex].en}`;
             document.getElementById("result").style.color = "red";
             document.getElementById("submit").disabled = true;
         }
@@ -223,18 +227,18 @@
     function nextWord() {
         currentIndex++;
         if (currentIndex < words.length) {
-            currentWord = words[currentIndex];
             displayWord();
         } else {
             document.getElementById("word").textContent = "Gratulacje! Ukończyłeś wszystkie słowa.";
             document.getElementById("answer").style.display = 'none';
             document.getElementById("submit").style.display = 'none';
             document.getElementById("success-bar").classList.remove("show");
+            updateProgressBar();
         }
     }
 
     function updateProgressBar() {
-        const progress = ((currentIndex + 1) / words.length) * 100;
+        const progress = ((currentIndex) / words.length) * 100;
         document.getElementById("progress-bar").style.width = progress + "%";
     }
 
