@@ -1,272 +1,283 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Word Learning</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 100vh;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word Learning</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+.progress-bar-container {
+    width: 100%;
+    height: 20px;
+    background-color: #ddd;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #28a745;
+    transition: width 0.3s ease;
+}
+.exit-btn {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+}
+.container {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    max-width: 1000px;
+    margin-top: 10px;
+    gap: 20px;
+}
+.side { flex: 1; }
+.main-content {
+    flex: 2;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+h2 { text-align: center; color: #333; }
+.word-number {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.word {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 18px;
+}
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4b935c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+}
+button:disabled { background-color: #ccc; }
 
-        /* Pasek postępu na górze */
-        .progress-bar-container {
-            width: 100%;
-            height: 20px;
-            background-color: #ddd;
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
+.bottom-bar {
+    position: fixed;
+    bottom: -100px;
+    left: 0;
+    width: 100%;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: bottom 0.5s ease;
+}
+.bottom-bar.show { bottom: 0; }
+.continue-btn {
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    width: 100px;
+}
+.goto-word {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 5px;
+}
+.goto-word input { width: 60px; padding: 5px; }
+.goto-word button { width: auto; padding: 5px 10px; font-size: 14px; }
 
-        .progress-bar {
-            height: 100%;
-            width: 0%;
-            background-color: #28a745;
-            transition: width 0.3s ease;
-        }
-
-        .exit-btn {
-            position: absolute;
-            right: 10px;
-            top: 0;
-            bottom: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 18px;
-            color: white;
-            font-weight: bold;
-        }
-
-        .container {
-            display: flex;
-            flex: 1;
-            width: 100%;
-            max-width: 1000px;
-            margin-top: 10px;
-            gap: 20px;
-        }
-
-        .side {
-            flex: 1;
-        }
-
-        .main-content {
-            flex: 2;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        h2 {
-            text-align: center;
-            color: #333;
-        }
-
-        .word {
-            font-size: 28px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-size: 18px;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            cursor: pointer;
-        }
-
-        button:disabled {
-            background-color: #ccc;
-        }
-
-        .result {
-            text-align: center;
-            font-size: 18px;
-            margin-top: 10px;
-        }
-
-        /* Pasek gratulacyjny */
-        .success-bar {
-            display: none;
-            position: fixed;
-            bottom: -150px;
-            left: 0;
-            right: 0;
-            background-color: #28a745;
-            color: white;
-            text-align: center;
-            padding: 15px;
-            font-size: 20px;
-            font-weight: bold;
-            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
-            transition: bottom 0.3s ease;
-        }
-
-        .success-bar.show {
-            bottom: 0;
-        }
-
-        .success-icon {
-            margin-right: 10px;
-        }
-
-        .continue-btn {
-            background-color: white;
-            color: #28a745;
-            border: 2px solid white;
-            border-radius: 5px;
-            padding: 5px 15px;
-            margin-top: 10px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        /* Pasek błędu */
-        .error-bar {
-            background-color: #dc3545;
-        }
-    </style>
+/* Mały pasek po zakończeniu wszystkich słów */
+.finish-bar-container {
+    width: 80%;
+    background-color: #ddd;
+    border-radius: 5px;
+    margin: 10px auto 0;
+    height: 15px;
+    overflow: hidden;
+}
+.finish-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #28a745;
+    transition: width 3s linear;
+}
+</style>
 </head>
 <body>
 
-    <!-- Pasek postępu -->
-    <div class="progress-bar-container">
-        <div class="progress-bar" id="progress-bar"></div>
-        <div class="exit-btn" onclick="window.location.href='index.html'">✖</div>
-    </div>
+<div class="progress-bar-container">
+    <div class="progress-bar" id="progress-bar"></div>
+    <div class="exit-btn" onclick="window.location.href='index.html'">✖</div>
+</div>
 
-    <div class="container">
-        <div class="side"></div>
-
-        <div class="main-content">
-            <h2>Przepisz słowo po angielsku:</h2>
-            <div id="word" class="word"></div>
-            <input type="text" id="answer" placeholder="Wpisz odpowiedź...">
-            <button id="submit" onclick="checkAnswer()">Sprawdź odpowiedź</button>
-            <div id="result" class="result"></div>
+<div class="container">
+    <div class="side"></div>
+    <div class="main-content">
+        <div class="word-number" id="word-number"></div>
+        <h2 id="main-title">Przepisz słowo po angielsku:</h2>
+        <div id="word" class="word"></div>
+        <input type="text" id="answer" placeholder="Wpisz odpowiedź...">
+        <button id="submit" onclick="checkAnswer()">Sprawdź odpowiedź</button>
+        <div class="goto-word" id="goto-word-container">
+            <input type="number" id="go-to-word" placeholder="Nr słowa" min="1">
+            <button onclick="goToWord()">Idź</button>
         </div>
-
-        <div class="side"></div>
     </div>
+    <div class="side"></div>
+</div>
 
-    <!-- Pasek sukcesu / błędu -->
-    <div id="success-bar" class="success-bar">
-        <span class="success-icon" id="icon">✅</span>
-        <span id="success-message"></span>
-        <br>
-        <button class="continue-btn" onclick="nextWord()">Continue</button>
-    </div>
+<div id="bottom-bar" class="bottom-bar">
+    <span id="bar-message"></span>
+    <button id="continue-btn" class="continue-btn" onclick="nextWord()">Continue</button>
+</div>
 
-    <script>
-    const words = [
-        // 🔽 TESTOWE SŁÓWKA (zmień na swoje)
-        { pl: "drzewo", en: "tree" },
-        { pl: "dom", en: "house" },
-        { pl: "pies", en: "dog" }
-    ];
+<div class="finish-bar-container" id="finish-bar-container" style="display:none;">
+    <div class="finish-bar" id="finish-bar"></div>
+</div>
 
-    const successMessages = ["Great!", "Awesome!", "Perfect!", "Well done!", "Excellent!", "Super!"];
-    
-    let currentIndex = 0;
+<script>
+const words = [
+    { pl: "drzewo", en: "tree" },
+    { pl: "dom", en: "house" },
+    { pl: "pies", en: "dog" },
+    { pl: "kot", en: "cat" },
+    { pl: "książka", en: "book" }
+];
 
-    function displayWord() {
-        if (currentIndex < words.length) {
-            document.getElementById("word").textContent = words[currentIndex].pl;
-            document.getElementById("answer").value = '';
-            document.getElementById("result").textContent = '';
-            document.getElementById("submit").disabled = false;
-            document.getElementById("success-bar").classList.remove("show");
-            document.getElementById("success-bar").classList.remove("error-bar");
-            updateProgressBar();
-        }
+let currentIndex = 0;
+
+function displayWord() {
+    document.getElementById("word").textContent = words[currentIndex].pl;
+    document.getElementById("answer").value = '';
+    document.getElementById("submit").disabled = false;
+    document.getElementById("bottom-bar").classList.remove("show");
+    document.getElementById("word-number").textContent = `Słowo ${currentIndex + 1} z ${words.length}`;
+    document.getElementById("goto-word-container").style.display = 'flex';
+    updateProgressBar();
+}
+
+function checkAnswer() {
+    const answer = document.getElementById("answer").value.trim().toLowerCase();
+    const correctAnswer = words[currentIndex].en.toLowerCase();
+    const bar = document.getElementById("bottom-bar");
+    const message = document.getElementById("bar-message");
+    const continueBtn = document.getElementById("continue-btn");
+
+    if (answer === correctAnswer) {
+        bar.style.backgroundColor = "#B5EB8B"; // jasnozielony
+        message.textContent = "✅ Perfect!";
+        continueBtn.style.backgroundColor = "#28a745"; // zielony przycisk
+        continueBtn.style.color = "white";
+    } else {
+        bar.style.backgroundColor = "#F1948A"; // jasnoczerwony
+        message.textContent = `❌ Źle! Poprawna odpowiedź: ${words[currentIndex].en}`;
+        continueBtn.style.backgroundColor = "#dc3545"; // czerwony przycisk
+        continueBtn.style.color = "white";
     }
 
-    function checkAnswer() {
-        const answer = document.getElementById("answer").value.trim().toLowerCase();
-        const correctAnswer = words[currentIndex].en.toLowerCase();
+    bar.classList.add("show");
+    document.getElementById("submit").disabled = true;
+    document.getElementById("answer").focus();
+}
 
-        document.getElementById("submit").disabled = true;
+function nextWord() {
+    currentIndex++;
+    if (currentIndex < words.length) {
+        displayWord();
+    } else {
+        // koniec słów
+        document.getElementById("word").textContent = "Gratulacje! Ukończyłeś wszystkie słowa.";
+        document.getElementById("answer").style.display = 'none';
+        document.getElementById("submit").style.display = 'none';
+        document.getElementById("goto-word-container").style.display = 'none';
+        document.getElementById("bottom-bar").classList.remove("show");
 
-        if (answer === correctAnswer) {
-            showBottomBar(true, successMessages[Math.floor(Math.random() * successMessages.length)]);
-        } else {
-            showBottomBar(false, `Błąd! Poprawna odpowiedź to: ${words[currentIndex].en}`);
-        }
+        // pokaż mały pasek
+        const finishContainer = document.getElementById("finish-bar-container");
+        const finishBar = document.getElementById("finish-bar");
+        finishContainer.style.display = 'block';
+        // animacja ładowania
+        setTimeout(() => { finishBar.style.width = '100%'; }, 50);
+
+        // przekierowanie po 3 sekundach
+        setTimeout(() => { window.location.href = 'index.html'; }, 3000);
     }
+}
 
-    function showBottomBar(isCorrect, message) {
-        const bar = document.getElementById("success-bar");
-        const icon = document.getElementById("icon");
-        bar.classList.add("show");
+function updateProgressBar() {
+    const progress = (currentIndex / words.length) * 100;
+    document.getElementById("progress-bar").style.width = progress + "%";
+}
 
-        if (isCorrect) {
-            bar.classList.remove("error-bar");
-            bar.style.backgroundColor = "#28a745";
-            icon.textContent = "✅";
-        } else {
-            bar.classList.add("error-bar");
-            bar.style.backgroundColor = "#dc3545";
-            icon.textContent = "❌";
-        }
-
-        document.getElementById("success-message").textContent = message;
+function goToWord() {
+    const goToIndex = parseInt(document.getElementById("go-to-word").value) - 1;
+    if (!isNaN(goToIndex) && goToIndex >= 0 && goToIndex < words.length) {
+        currentIndex = goToIndex;
+        displayWord();
+    } else {
+        alert("Numer słowa jest poza zakresem!");
     }
+}
 
-    function nextWord() {
-        currentIndex++;
-        if (currentIndex < words.length) {
-            displayWord();
-        } else {
-            document.getElementById("word").textContent = "Gratulacje! Ukończyłeś wszystkie słowa.";
-            document.getElementById("answer").style.display = 'none';
-            document.getElementById("submit").style.display = 'none';
-            document.getElementById("success-bar").classList.remove("show");
-            updateProgressBar();
-        }
-    }
-
-    function updateProgressBar() {
-        const progress = ((currentIndex) / words.length) * 100;
-        document.getElementById("progress-bar").style.width = progress + "%";
-    }
-
-    document.getElementById("answer").addEventListener("keydown", function(event) {
-        if (event.key === "Enter" && !document.getElementById("submit").disabled) {
+document.getElementById("answer").addEventListener("keydown", function(event) {
+    const continueBtn = document.getElementById("continue-btn");
+    if (event.key === "Enter") {
+        if (!document.getElementById("submit").disabled) {
             checkAnswer();
+        } else {
+            continueBtn.click();
         }
-    });
+    }
+});
 
-    displayWord();
-    </script>
+displayWord();
+</script>
 
 </body>
 </html>
