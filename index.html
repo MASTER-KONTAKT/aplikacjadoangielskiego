@@ -220,21 +220,28 @@
 
 
 
+
 let currentWeekOffset = 0;
 
-// 🟢 FUNKCJA AKTUALIZUJĄCA AKTYWNOŚĆ W localStorage
-function markTodayAsActive() {
-    let today = new Date().toISOString().split('T')[0]; // Pobierz dzisiejszą datę w formacie YYYY-MM-DD
-    let streakData = JSON.parse(localStorage.getItem('streakData')) || {}; // Pobierz zapisane dane
-
-    // Oznacz dzisiejszy dzień jako aktywny
-    streakData[today] = true;
-
-    // Zapisz dane ponownie do localStorage
-    localStorage.setItem('streakData', JSON.stringify(streakData));
+// 🔑 Generowanie / pobieranie unikalnego ID dla użytkownika
+let userId = localStorage.getItem('userId');
+if (!userId) {
+    userId = "user_" + Math.floor(Math.random() * 1000000); // losowy identyfikator
+    localStorage.setItem('userId', userId);
 }
 
-// 🔄 FUNKCJA AKTUALIZUJĄCA KALENDARZ
+// Funkcja oznaczająca dzisiejszy dzień jako aktywny
+function markTodayAsActive() {
+    let today = new Date().toISOString().split('T')[0]; 
+    let streakKey = `streakData_${userId}`; // dane przypisane do użytkownika
+    let streakData = JSON.parse(localStorage.getItem(streakKey)) || {};
+
+    streakData[today] = true;
+
+    localStorage.setItem(streakKey, JSON.stringify(streakData));
+}
+
+// Funkcja aktualizująca kalendarz
 function updateCalendar() {
     let today = new Date();
     let days = ['PN', 'WT', 'ŚR', 'CZ', 'PT', 'SO', 'ND'];
@@ -243,9 +250,10 @@ function updateCalendar() {
     calendarDiv.innerHTML = '';
     
     let weekStartDate = new Date(today);
-    weekStartDate.setDate(today.getDate() - today.getDay() + 1 + currentWeekOffset * 7); // Start tygodnia
-    
-    let streakData = JSON.parse(localStorage.getItem('streakData')) || {};
+    weekStartDate.setDate(today.getDate() - today.getDay() + 1 + currentWeekOffset * 7);
+
+    let streakKey = `streakData_${userId}`;
+    let streakData = JSON.parse(localStorage.getItem(streakKey)) || {};
     let weekDays = [];
     
     for (let i = 0; i < 7; i++) {
@@ -262,7 +270,6 @@ function updateCalendar() {
         });
     }
 
-    // Wyświetlanie roku i miesiąca w nagłówku
     let monthYear = weekDays[0].month + " " + weekDays[0].year;
     weekInfo.innerHTML = `${monthYear}`;
 
@@ -270,13 +277,15 @@ function updateCalendar() {
         let isActive = streakData[day.dateKey] ? '🔥' : '⚪';
         let dayDiv = document.createElement('div');
         dayDiv.classList.add('day');
-        if (day.dateKey === new Date().toISOString().split('T')[0]) dayDiv.classList.add('active');
+        if (day.dateKey === new Date().toISOString().split('T')[0]) {
+            dayDiv.classList.add('active');
+        }
         dayDiv.innerHTML = `<div>${day.dayName} ${day.dayNumber}</div><div class="icon">${isActive}</div>`;
         calendarDiv.appendChild(dayDiv);
     });
 }
 
-// 🔘 OBSŁUGA PRZEŁĄCZANIA TYGODNI
+// Obsługa zmiany tygodnia
 document.getElementById('prevWeek').addEventListener('click', () => {
     currentWeekOffset--;
     updateCalendar();
@@ -287,10 +296,12 @@ document.getElementById('nextWeek').addEventListener('click', () => {
     updateCalendar();
 });
 
-// ✅ OZNACZ OBECNY DZIEŃ JAKO AKTYWNY I ZAKTUALIZUJ KALENDARZ
+// Oznaczenie dnia i odświeżenie kalendarza
 markTodayAsActive();
 updateCalendar();
+
     </script>
 
 </body>
 </html>
+
