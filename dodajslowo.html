@@ -58,12 +58,13 @@ body {
     position: relative;
 }
 .mascot {
-    width: 150px;
+    width: 160px;
     opacity: 0;
     transform: translateY(50px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition: opacity 1.0s ease, transform 0.1s ease;
     position: absolute;
     bottom: 120px;
+    left: 10px;
 }
 .mascot.show {
     opacity: 1;
@@ -71,16 +72,27 @@ body {
 }
 .chat-bubble {
     position: absolute;
-    bottom: 280px;
+    bottom: 190px;
+    left: 130px; /* przesunięcie względem maskotki */
     background: white;
     border: 2px solid #ccc;
     border-radius: 10px;
-    padding: 8px 12px;
+    padding: 10px 14px;
     font-weight: bold;
     font-size: 14px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     display: none;
-    animation: pop 0.3s ease;
+    max-width: 180px;
+    animation: pop 1.0s ease;
+}
+.chat-bubble::after {
+    content: "";
+    position: absolute;
+    left: -10px;
+    bottom: 15px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent white transparent transparent;
 }
 @keyframes pop {
     0% { transform: scale(0.7); opacity: 0; }
@@ -251,7 +263,7 @@ function showMascotMessage(text) {
     const bubble = document.getElementById("chat-bubble");
     bubble.textContent = text;
     bubble.style.display = "block";
-    setTimeout(() => { bubble.style.display = "none"; }, 2000);
+ 
 }
 
 function checkAnswer() {
@@ -274,7 +286,7 @@ function checkAnswer() {
         message.textContent = `❌ Źle! Poprawna odpowiedź: ${words[currentIndex].en}`;
         continueBtn.style.backgroundColor = "#dc3545";
         continueBtn.style.color = "white";
-        showMascotMessage("Try again!");
+        showMascotMessage("Ups! Spróbuj jeszcze raz!");
     }
 
     bar.classList.add("show");
