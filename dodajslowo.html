@@ -50,7 +50,42 @@ body {
     margin-top: 10px;
     gap: 20px;
 }
-.side { flex: 1; }
+.side {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    position: relative;
+}
+.mascot {
+    width: 150px;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    position: absolute;
+    bottom: 120px;
+}
+.mascot.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+.chat-bubble {
+    position: absolute;
+    bottom: 280px;
+    background: white;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-weight: bold;
+    font-size: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    display: none;
+    animation: pop 0.3s ease;
+}
+@keyframes pop {
+    0% { transform: scale(0.7); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
 .main-content {
     flex: 2;
     background-color: #fff;
@@ -132,7 +167,6 @@ button:disabled { background-color: #ccc; }
 .goto-word input { width: 60px; padding: 5px; }
 .goto-word button { width: auto; padding: 5px 10px; font-size: 14px; }
 
-/* Mały pasek po zakończeniu wszystkich słów */
 .finish-bar-container {
     width: 80%;
     background-color: #ddd;
@@ -157,7 +191,11 @@ button:disabled { background-color: #ccc; }
 </div>
 
 <div class="container">
-    <div class="side"></div>
+    <div class="side">
+        <img src="mascot.png" class="mascot" id="mascot">
+        <div class="chat-bubble" id="chat-bubble"></div>
+    </div>
+
     <div class="main-content">
         <div class="word-number" id="word-number"></div>
         <h2 id="main-title">Przepisz słowo po angielsku:</h2>
@@ -185,12 +223,10 @@ button:disabled { background-color: #ccc; }
 const words = [
     { pl: "drzewo", en: "tree" },
     { pl: "dom", en: "house" },
-    { pl: "pies", en: "dog" },
-    { pl: "kot", en: "cat" },
-    { pl: "książka", en: "book" },
-    { pl: "mówić", en: "speak" }, { pl: "jeść", en: "eat" }, { pl: "pić", en: "drink" }, { pl: "kochać", en: "love" }, { pl: "lubić", en: "like" }, { pl: "czekać", en: "wait" }, { pl: "pisać", en: "write" }, { pl: "czytać", en: "read" }, { pl: "rozumieć", en: "understand" }, { pl: "pracować", en: "work" }, { pl: "szukać", en: "search" }, { pl: "znać", en: "know" }, { pl: "zrozumieć", en: "understand" }, { pl: "później", en: "later" }, { pl: "wczoraj", en: "yesterday" }, { pl: "jutro", en: "tomorrow" }, { pl: "teraz", en: "now" }, { pl: "znajomy", en: "acquaintance" }, { pl: "płatność", en: "payment" },
+    { pl: "pies", en: "dog" }
 ];
 
+const mascotMessages = ["Great!", "Nice!", "Good job!", "Awesome!", "Well done!"];
 let currentIndex = 0;
 
 function displayWord() {
@@ -200,7 +236,22 @@ function displayWord() {
     document.getElementById("bottom-bar").classList.remove("show");
     document.getElementById("word-number").textContent = `Słowo ${currentIndex + 1} z ${words.length}`;
     document.getElementById("goto-word-container").style.display = 'flex';
+    hideMascot();
     updateProgressBar();
+}
+
+function showMascot() {
+    document.getElementById("mascot").classList.add("show");
+}
+function hideMascot() {
+    document.getElementById("mascot").classList.remove("show");
+    document.getElementById("chat-bubble").style.display = "none";
+}
+function showMascotMessage(text) {
+    const bubble = document.getElementById("chat-bubble");
+    bubble.textContent = text;
+    bubble.style.display = "block";
+    setTimeout(() => { bubble.style.display = "none"; }, 2000);
 }
 
 function checkAnswer() {
@@ -210,43 +261,42 @@ function checkAnswer() {
     const message = document.getElementById("bar-message");
     const continueBtn = document.getElementById("continue-btn");
 
+    showMascot();
+
     if (answer === correctAnswer) {
-        bar.style.backgroundColor = "#B5EB8B"; // jasnozielony
+        bar.style.backgroundColor = "#B5EB8B";
         message.textContent = "✅ Perfect!";
-        continueBtn.style.backgroundColor = "#28a745"; // zielony przycisk
+        continueBtn.style.backgroundColor = "#28a745";
         continueBtn.style.color = "white";
+        showMascotMessage(mascotMessages[Math.floor(Math.random() * mascotMessages.length)]);
     } else {
-        bar.style.backgroundColor = "#F1948A"; // jasnoczerwony
+        bar.style.backgroundColor = "#F1948A";
         message.textContent = `❌ Źle! Poprawna odpowiedź: ${words[currentIndex].en}`;
-        continueBtn.style.backgroundColor = "#dc3545"; // czerwony przycisk
+        continueBtn.style.backgroundColor = "#dc3545";
         continueBtn.style.color = "white";
+        showMascotMessage("Try again!");
     }
 
     bar.classList.add("show");
     document.getElementById("submit").disabled = true;
-    document.getElementById("answer").focus();
 }
 
 function nextWord() {
+    hideMascot();
     currentIndex++;
     if (currentIndex < words.length) {
         displayWord();
     } else {
-        // koniec słów
         document.getElementById("word").textContent = "Gratulacje! Ukończyłeś wszystkie słowa.";
         document.getElementById("answer").style.display = 'none';
         document.getElementById("submit").style.display = 'none';
         document.getElementById("goto-word-container").style.display = 'none';
         document.getElementById("bottom-bar").classList.remove("show");
 
-        // pokaż mały pasek
         const finishContainer = document.getElementById("finish-bar-container");
         const finishBar = document.getElementById("finish-bar");
         finishContainer.style.display = 'block';
-        // animacja ładowania
         setTimeout(() => { finishBar.style.width = '100%'; }, 50);
-
-        // przekierowanie po 3 sekundach
         setTimeout(() => { window.location.href = 'index.html'; }, 3000);
     }
 }
@@ -282,5 +332,3 @@ displayWord();
 
 </body>
 </html>
-
-
