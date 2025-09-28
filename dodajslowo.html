@@ -140,28 +140,29 @@ h2 {
 }
 
 #word-container {
-    display: inline-flex;        /* wszystko w jednej linii */
+    display: inline-flex;        
     justify-content: center;
     align-items: center;
-    gap: 5px;                    /* mała przerwa między słowem a głośniczkiem */
+    gap: 3px;                    
     margin-bottom: 20px;
 }
 
 #speak-btn {
-    font-size: 28px;             /* dopasowane do słowa */
+    font-size: 28px;             
     cursor: pointer;
-    user-select: none;           /* nie da się zaznaczyć */
-    background: none;            /* brak tła */
-    border: none;                /* brak obramowania */
+    user-select: none;           
+    line-height: 1;              
+    vertical-align: middle;      
     padding: 0;
     margin: 0;
-    line-height: 1;
-    vertical-align: middle;      /* wyrównanie w linii z tekstem */
+    background: none;            
+    border: none;                
+    visibility: hidden;          /* niewidoczny na początku */
+    transition: transform 0.2s ease, visibility 0.2s;
 }
 
 #speak-btn:hover {
     transform: scale(1.2);
-    transition: transform 0.2s ease;
 }
 
 input[type="text"] {
@@ -251,7 +252,6 @@ button:disabled {
     background-color: #28a745;
     transition: width 3s linear;
 }
-
 </style>
 </head>
 <body>
@@ -270,10 +270,10 @@ button:disabled {
     <div class="main-content">
         <div class="word-number" id="word-number"></div>
         <h2 id="main-title">Przepisz słowo po angielsku:</h2>
-       <div id="word-container">
-    <span id="word" class="word">tree</span>
-    <span id="speak-btn">🔊</span>
-</div>
+        <div id="word-container">
+            <span id="word" class="word"></span>
+            <span id="speak-btn">🔊</span>
+        </div>
         <input type="text" id="answer" placeholder="Wpisz odpowiedź...">
         <button id="submit" onclick="checkAnswer()">Sprawdź odpowiedź</button>
         <div class="goto-word" id="goto-word-container">
@@ -303,6 +303,8 @@ const words = [
 const mascotMessages = ["Great!", "Nice!", "Good job!", "Awesome!", "Well done!"];
 let currentIndex = 0;
 
+const speakBtn = document.getElementById("speak-btn");
+
 function displayWord() {
     document.getElementById("word").textContent = words[currentIndex].pl;
     document.getElementById("answer").value = '';
@@ -312,9 +314,9 @@ function displayWord() {
     document.getElementById("goto-word-container").style.display = 'flex';
     hideMascot();
     updateProgressBar();
+    speakBtn.style.visibility = 'hidden'; // ukryj głośniczek przy nowym słowie
 }
 
-// Maskotka
 function showMascot() {
     document.getElementById("mascot").classList.add("show");
 }
@@ -328,7 +330,6 @@ function showMascotMessage(text) {
     bubble.style.display = "block";
 }
 
-// Sprawdzenie odpowiedzi
 function checkAnswer() {
     const answer = document.getElementById("answer").value.trim().toLowerCase();
     const correctAnswer = words[currentIndex].en.toLowerCase();
@@ -352,11 +353,18 @@ function checkAnswer() {
         showMascotMessage("Ups! Spróbuj jeszcze raz!");
     }
 
+    speakBtn.style.visibility = 'visible'; // pokaż głośniczek po odpowiedzi
     bar.classList.add("show");
     document.getElementById("submit").disabled = true;
 }
 
-// Następne słowo
+speakBtn.addEventListener("click", () => {
+    const text = words[currentIndex].en;
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US';
+    speechSynthesis.speak(utterance);
+});
+
 function nextWord() {
     hideMascot();
     currentIndex++;
@@ -368,6 +376,7 @@ function nextWord() {
         document.getElementById("submit").style.display = 'none';
         document.getElementById("goto-word-container").style.display = 'none';
         document.getElementById("bottom-bar").classList.remove("show");
+        speakBtn.style.display = 'none'; // ukryj głośniczek po zakończeniu
 
         const finishContainer = document.getElementById("finish-bar-container");
         const finishBar = document.getElementById("finish-bar");
@@ -377,13 +386,11 @@ function nextWord() {
     }
 }
 
-// Pasek postępu
 function updateProgressBar() {
     const progress = (currentIndex / words.length) * 100;
     document.getElementById("progress-bar").style.width = progress + "%";
 }
 
-// Skok do słowa
 function goToWord() {
     const goToIndex = parseInt(document.getElementById("go-to-word").value) - 1;
     if (!isNaN(goToIndex) && goToIndex >= 0 && goToIndex < words.length) {
@@ -394,7 +401,6 @@ function goToWord() {
     }
 }
 
-// Enter jako skrót
 document.getElementById("answer").addEventListener("keydown", function(event) {
     const continueBtn = document.getElementById("continue-btn");
     if (event.key === "Enter") {
@@ -404,14 +410,6 @@ document.getElementById("answer").addEventListener("keydown", function(event) {
             continueBtn.click();
         }
     }
-});
-
-// Głośniczek - odczyt słowa
-document.getElementById("speak-btn").addEventListener("click", () => {
-    const text = words[currentIndex].en;
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'en-US';
-    speechSynthesis.speak(utterance);
 });
 
 displayWord();
